@@ -8,5 +8,5 @@ services:
     environment:
       - JENKINS_AGENT_WORKDIR=/home/jenkins/agent
       - JENKINS_URL=http://localhost:8080
-      - JENKINS_SECRET=agent1
-      - JENKINS_AGENT_NAME=agent1
+      - JENKINS_SECRET=jenkins_agent1
+      - JENKINS_AGENT_NAME=jenkins_agent1
