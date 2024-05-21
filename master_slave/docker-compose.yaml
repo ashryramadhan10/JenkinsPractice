@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  jenkins_master:
+    build: ./jenkins_master
+    container_name: jenkins_master
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - "/home/webscientia/jenkins_home:/var/jenkins_home"
+    networks:
+      - jenkins_networks
+    
+  jenkins_agent:
+    build: ./jenkins_agent
+    container_name: jenkins_agent
+    depends_on:
+      - jenkins_master
+    environment:
+      - JENKINS_AGENT_NAME=swarm-agent
+      - JENKINS_AGENT_WORKDIR=/home/jenkins/agent
+      - JENKINS_MASTER_URL=http://192.168.60.233:8080
+      - JENKINS_AGENT_LABELS=docker-agent
+      - JENKINS_USERNAME=ashry
+      - JENKINS_PASSWORD=112905496f5db08d4b222e9fe21586b2d7
+    volumes:
+      - /home/webscientia/jenkins_agent/:/home/jenkins/agent
+    networks:
+      - jenkins_networks
+    
+networks:
+  jenkins_networks:
+    driver: bridge
