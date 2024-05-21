@@ -8,7 +8,7 @@ services:
       - "8080:8080"
       - "50000:50000"
     volumes:
-      - "/home/webscientia/jenkins_home:/var/jenkins_home"
+      - "D:/Programs/Jenkins:/var/jenkins_home"
     networks:
       - jenkins_networks
     environment:
@@ -20,13 +20,11 @@ services:
     depends_on:
       - jenkins_master
     volumes:
-      - /home/webscientia/jenkins_agent/:/home/jenkins/agent
+      - D:/Programs/JenkinsAgents:/home/jenkins/agent
     ports:
       - "2222:22"
     networks:
       - jenkins_networks
-    environment:
-      - JENKINS_AGENT_SSH_PORT=22
 
 networks:
   jenkins_networks:
