@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  jenkins_master:
+    build: ./jenkins_master
+    container_name: jenkins_master
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - "/home/webscientia/jenkins_home:/var/jenkins_home"
+    networks:
+      - jenkins_networks
+    environment:
+      JAVA_OPTS: "-Djenkins.install.runSetupWizard=false"
+  
+  jenkins_agent:
+    build: ./jenkins_agent
+    container_name: jenkins_agent
+    depends_on:
+      - jenkins_master
+    volumes:
+      - /home/webscientia/jenkins_agent/:/home/jenkins/agent
+    ports:
+      - "2222:22"
+    networks:
+      - jenkins_networks
+    environment:
+      - JENKINS_AGENT_SSH_PORT=22
+
+networks:
+  jenkins_networks:
+    driver: bridge
