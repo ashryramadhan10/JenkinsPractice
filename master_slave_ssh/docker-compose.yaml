@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  jenkins-master:
+    image: jenkins/jenkins:latest
+    container_name: jenkins-master
+    volumes:
+      - /home/webscientia/jenkins_home:/var/jenkins_home
+    ports:
+      - 8080:8080
+      - 50000:50000
+    networks:
+      - jenkins-networks
+
+  jenkins-agent:
+    build: ./jenkins-agent
+    container_name: jenkins-agent1
+    volumes:
+      - /home/webscientia/jenkins_agent:/home/jenkins/agent:rw
+    ports:
+      - 22:22
+    networks:
+      - jenkins-networks
+    environment:
+      - JENKINS_AGENT_SSH_PUBKEY=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJi2E2ENTvquhUNpVuT372UBCrNoAw5gd+QnQJCordxy ashry.ramadhan@webscientia.id
+
+networks:
+  jenkins-networks:
+    driver: bridge
