@@ -37,6 +37,7 @@ RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/
 EXPOSE 22
 
 RUN su jenkins
+RUN cd /home/jenkins
 
 # Start SSH service
 CMD ["/usr/sbin/sshd", "-D"]
