@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  jenkins-master:
+    image: jenkins/jenkins:latest
+    container_name: jenkins-master
+    volumes:
+      - /home/webscientia/jenkins_home:/var/jenkins_home
+    ports:
+      - 8080:8080
+      - 50000:50000
+    networks:
+      - jenkins-networks
+
+  jenkins-agent1:
+    build: ./jenkins-agent1
+    container_name: jenkins-agent1
+    volumes:
+      - /home/webscientia/jenkins_agent:/home/jenkins_agent1
+    networks:
+      - jenkins-networks
+
+networks:
+  jenkins-networks:
+    driver: bridge
