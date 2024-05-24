@@ -23,3 +23,25 @@ pipeline {
 
 ## 3. Jenkinsfile
 
+It's just a file named `Jenkinsfile` with jenkins pipeline inside of it.
+
+## 4. Agent
+
+```groovy
+pipeline {
+    agent {
+        node {
+            label "jenkins_agent1"
+        }
+    }
+    stages {
+        stage("hello") {
+            steps {
+                echo("Hello Pipeline with jenkins_agent1")
+            }
+        }
+    }
+}
+```
+
+

@@ -1,9 +1,13 @@
 pipeline {
-    agent any
+    agent {
+        node {
+            label "jenkins_agent1"
+        }
+    }
     stages {
         stage("hello") {
             steps {
-                echo("Hello Pipeline")
+                echo("Hello Pipeline with jenkins_agent1")
             }
         }
     }

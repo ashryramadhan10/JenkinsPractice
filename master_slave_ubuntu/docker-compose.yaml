@@ -5,7 +5,7 @@ services:
     image: jenkins/jenkins:latest
     container_name: jenkins-master
     volumes:
-      - /home/webscientia/jenkins_home:/var/jenkins_home
+      - D:/Programs/Jenkins:/var/jenkins_home
     ports:
       - 8080:8080
       - 50000:50000
@@ -16,7 +16,7 @@ services:
     build: ./jenkins-agent1
     container_name: jenkins-agent1
     volumes:
-      - /home/webscientia/jenkins_agent:/home/jenkins_agent1
+      - D:/Programs/JenkinsAgents/agent1:/home/jenkins_agent1
     networks:
       - jenkins-networks
 
