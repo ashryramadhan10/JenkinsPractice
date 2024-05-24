@@ -5,9 +5,19 @@ pipeline {
         }
     }
     stages {
-        stage("hello") {
+        stage("Build") {
             steps {
-                echo("Hello Pipeline with jenkins_agent1")
+                echo("Build Stage")
+            }
+        }
+        stage("Test") {
+            steps {
+                echo("Test Stage")
+            }
+        }
+        stage("Deploy") {
+            steps {
+                echo("Deploy Stage")
             }
         }
     }
