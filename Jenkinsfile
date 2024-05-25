@@ -9,6 +9,7 @@ pipeline {
             steps {
                 echo "Build Stage, Sleep for 5 seconds"
                 sleep(5)
+                sh 'echo $HOME'
             }
         }
         stage("Test") {

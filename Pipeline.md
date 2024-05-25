@@ -129,7 +129,17 @@ steps {
 }
 ```
 
-### 7.2. Script
+### 7.2. Nodes and Process Steps
+
+[https://www.jenkins.io/doc/pipeline/steps/workflow-durable-task-step/](https://www.jenkins.io/doc/pipeline/steps/workflow-durable-task-step/)
+
+We will try to use one of the steps: `sh`.
+
+```groovy
+steps {
+    sh "echo $HOME"
+}
+```
 
 
 
