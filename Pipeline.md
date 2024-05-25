@@ -380,14 +380,240 @@ pipeline {
 pipeline {
     ...
     stages {
-        input {
-            message "Should we deploy?"
-            ok "Yes, of course"
-            submitter "ashryramadhan"
+        stage("Build") {
+            agent {
+                node {
+                    label "jenkins_agent1"
+                }
+            }
+            input {
+                message "Should we deploy?"
+                ok "Yes, of course"
+                submitter "ashryramadhan"
+            }
+            steps {
+                echo "Deploy to ${TARGET_ENV}"
+            }
         }
     }
 }
 ```
+
+## 16. When
+
+`When` is used to determine when the stage will be executed (conditional expression). [https://www.jenkins.io/doc/book/pipeline/syntax/#when](https://www.jenkins.io/doc/book/pipeline/syntax/#when)
+
+```groovy
+pipeline {
+    ...
+    parameters {
+        ...
+        booleanParam(name: 'DEPLOY', defaultValue: false, description: 'Need to deploy?')
+    }
+    stages {
+        stage("Release") {
+            when {
+                expression {
+                    return params.DEPLOY
+                }
+            }
+            agent {
+                node {
+                    label ..
+                }
+            }
+            steps {
+                
+            }
+        }
+    }
+}
+```
+
+## 17. Sequential Stages
+
+* Stages could have more than one stage.
+* By default it will be executed `sequentially`.
+* We can include `stages` inside `stage`
+```groovy
+stages {
+    stage("Preparation") {
+        agent {
+            ...
+        }
+        stages {
+            stage("Preparation Java") {
+                steps {
+                    echo "Prepare Java"
+                }
+            }
+
+            stage("Prepare Maven") {
+                steps {
+                    echo "Prepare Maven"
+                }
+            }
+        }
+    }
+}
+```
+
+## 18. Parallel Stages
+
+* Sometimes, we want our stages run in parallel
+* By default parallel will wait all of process/threads to join together, even one of them has error
+* However, if we want to stop all of the stage process while we have an error in one of our stage, then we could add `failFast` or `parallelAlwaysFailFast()` in options
+* :warning: When we are using parallel we can't set an agent at the top of the stage, therefore, we need to specified all of agents at each stage.
+
+```groovy
+stages {
+    stage("Preparation") {
+        failFast true
+        parallel {
+            stage("Prepare Java") {
+                agent {
+                    node {
+                        label "jenkins_agent_java"
+                    }
+                }
+                steps {
+                    echo "Prepare Java"
+                    sleep(5)
+                }
+            }
+            stage("Prepare Maven") {
+                agent {
+                    node {
+                        label "jenkins_agent_maven"
+                    }
+                }
+                steps {
+                    echo "Prepare Maven"
+                    sleep(5)
+                }
+            }
+        }
+    }
+}
+```
+
+## 19. Matrix
+
+* Matrix is a feature that we can use to define multi dimension matrix which contains a combination of name-value, and it will run in parallel
+* Matrix is `super powerfull` because it will run all of stages in parallel using the matrix's combination, We put stages below the `axes`
+* `failFast` and `parallelAlwaysFailFast()` will work on Matrix as well
+
+```groovy
+stages {
+    stage("OS Setup") {
+        matrix {
+            axes {
+                axis {
+                    name 'OS'
+                    values 'linux', 'windows', 'mac'
+                }
+                axis {
+                    name 'ARC'
+                    values '32', '64'
+                }
+            }
+            // based on the Matrix Cell, if we use the Matrix's variable
+            // it will generate the combination of it
+            stages {
+                stage("OS Setup") {
+                    agent {
+                        node {
+                            label "linux && java11"
+                        }
+                    }
+                    steps {
+                        echo "Setup ${OS} ${ARC}"
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+### 19.1. Exclude Matrix Cell
+
+If we want to exlude our Matrix Cell we can use Exclude
+
+```groovy
+stages {
+    stage("OS Setup") {
+        matrix {
+            axes {
+                axis {
+                    name 'OS'
+                    values 'linux', 'windows', 'mac'
+                }
+                axis {
+                    name 'ARC'
+                    values '32', '64'
+                }
+            }
+            // If you want to Exclude the matrix cell
+            excludes {
+                exclude {
+                    axis {
+                        name "OS"
+                        values "mac"
+                    }
+                    axis {
+                        name "ARC"
+                        values "32"
+                    }
+                }
+            }
+            // based on the Matrix Cell, if we use the Matrix's variable
+            // it will generate the combination of it
+            stages {
+                stage("OS Setup") {
+                    agent {
+                        node {
+                            label "linux && java11"
+                        }
+                    }
+                    steps {
+                        echo "Setup ${OS} ${ARC}"
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+## 20. Credentials Binding
+
+If we don't want to expose the credentials using `withCredentials` and want to use credentials at some parts at our pipeline then we can use this plugin. [https://www.jenkins.io/doc/pipeline/steps/credentials-binding/](https://www.jenkins.io/doc/pipeline/steps/credentials-binding/)
+
+Search for plugin `Credentials Binding Plugin`
+
+`$USER` and `$PASSWORD` can only be accessed inside the `withCredentials`
+
+```groovy
+steps {
+    withCredentials([usernamePassword(
+        credentialsId: "ashry-ramadhan",
+        usernameVariable: "USER",
+        passwordVariable: "PASSWORD"
+    )]) {
+        sh('echo "Release with -u $USER -p $PASSWORD"')
+    }
+}
+```
+
+## 21. Multibranch Pipeline
+
+* Go to `New Item` > `Multibranch Pipeline`
+* Configure your `Job` with your `Git`
+* On `Build Configuration` choose `Jenkinsfile`
+* Set `Scan Multibranch Pipeline Triggers`
+
+## 22. Pipeline Limitation
 
 
 

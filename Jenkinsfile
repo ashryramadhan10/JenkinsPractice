@@ -27,6 +27,9 @@ pipeline {
             //     message "Should we deploy?"
             //     ok "Yes, of course"
             //     submitter "ashryramadhan"
+            //     parameters {
+            //         choice(name: "TARGET_ENV", chpices: ['DEV', 'QA', 'PROD'], decription: "Which Environment?")
+            //     }
             // }
             agent {
                 node {
