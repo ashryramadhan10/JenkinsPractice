@@ -333,6 +333,33 @@ pipeline {
 
 `Triggers` is used for to trigger the `Job` Automatically.
 
+Trigger Types:
+* `cron`: will run the `Job` periodically
+* `pollSCM` using cron expression to automatically running the `Job` if any changes happens.
+* `upstream` is used for running a `Job` after another `Job` is finish. [https://javadoc.jenkins-ci.org/hudson/model/Result.html](https://javadoc.jenkins-ci.org/hudson/model/Result.html)
+
+The one that will be commonly used is `Poll SCM`, it will polling the git repository based on the `cron` syntax.
+
+```groovy
+pipeline {
+    agent none
+    environment {
+        ...
+    }
+    parameters {
+        ...
+    }
+    options {
+        ...
+    }
+    triggers {
+        cron("*/5 * * * *") // every 5 minutes
+        pollSCM("*/15 * * *") // every 5 minutes
+        upstream(upstreamProjects: 'job1,job2', threshold: hudson.model.Result.SUCCESS)
+    }
+}
+```
+
 
 
 

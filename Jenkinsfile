@@ -11,6 +11,16 @@ pipeline {
         choice(name: 'SOCIAL_MEDIA', choices: ['Instagram', 'Facebook', 'Twitter'], description: 'Which social media?')
         password(name: 'SECRET', defaultValue: '', description: 'Ecrypt Key')
     }
+
+    options {
+        disableConcurrentBuilds()
+        timeout(time: 60, unit: 'SECONDS')
+    }
+
+    triggers {
+        pollSCM("*/15 * * * *") // will detect every 15 mins, if there's any change, then build
+    }
+
     stages {
         stage("Build") {
             agent {
