@@ -12,10 +12,10 @@ pipeline {
         password(name: 'SECRET', defaultValue: '', description: 'Ecrypt Key')
     }
 
-    options {
-        disableConcurrentBuilds()
-        timeout(time: 300, unit: 'SECONDS')
-    }
+    // options {
+    //     disableConcurrentBuilds()
+    //     timeout(time: 300, unit: 'SECONDS')
+    // }
 
     triggers {
         pollSCM("*/15 * * * *") // will detect every 15 mins, if there's any change, then build
