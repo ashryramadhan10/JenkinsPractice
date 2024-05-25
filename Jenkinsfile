@@ -30,13 +30,13 @@ pipeline {
                 //     }
                 // }
 
-                script {
-                    def data = [
-                        "firstName": "Ashry",
-                        "lastName": "Ramadhan"
-                    ]
-                    writeJSON(file: "data.json", json: data)
-                }
+                // script {
+                //     def data = [
+                //         "firstName": "Ashry",
+                //         "lastName": "Ramadhan"
+                //     ]
+                //     writeJSON(file: "data.json", json: data)
+                // }
             }
         }
         stage("Test") {
@@ -53,10 +53,10 @@ pipeline {
                 echo "author name: ${AUTHOR_NAME}"
                 sh('echo "$APP_USR:$APP_PSW"')
 
-                script {
-                    sh 'touch test.txt'
-                    archiveArtifacts artifacts: '*.txt', fingerprint: true
-                }
+                // script {
+                //     sh 'touch test.txt'
+                //     archiveArtifacts artifacts: '*.txt', fingerprint: true
+                // }
 
                 echo "Hello ${params.NAME}"
                 echo "Description: ${params.DESCRIPTION}"
