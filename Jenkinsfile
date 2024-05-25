@@ -7,17 +7,18 @@ pipeline {
     stages {
         stage("Build") {
             steps {
-                echo("Build Stage")
+                echo "Build Stage, Sleep for 5 seconds"
+                sleep(5)
             }
         }
         stage("Test") {
             steps {
-                echo("Test Stage")
+                echo "Test Stage"
             }
         }
         stage("Deploy") {
             steps {
-                echo("Deploy Stage")
+                echo "Deploy Stage"
             }
         }
     }

@@ -92,6 +92,8 @@ pipeline {
 
 ## 6. Stages
 
+Tips: Install Jenkins Plugin `Stages View`
+
 ```groovy
 stages {
     stage("Build") {
@@ -111,6 +113,25 @@ stages {
     }
 }
 ```
+
+## 7. Steps
+
+### 7.1. Basic Steps
+
+[https://www.jenkins.io/doc/pipeline/steps/workflow-basic-steps/](https://www.jenkins.io/doc/pipeline/steps/workflow-basic-steps/)
+
+Example:
+
+```groovy
+steps {
+    echo 'Sleeping for 5 seconds'
+    sleep(5)
+}
+```
+
+### 7.2. Script
+
+
 
 
 
