@@ -282,6 +282,57 @@ sh('echo "$APP_PSW"') // use '
 
 * `Option` can be placed below `pipeline` or `stage`
 
+```groovy
+pipline {
+    options {
+        disableConcurrentBuilds()
+        timeout(time: 60, unit: 'SECONDS')
+    }
+}
+```
+
+## 13. Parameter
+
+This is a `Job`'s parameter, the same one on the basic Jenkins.
+
+```groovy
+pipeline {
+    agent none
+    environment {
+        AUTHOR = "Ashry Ramadhan"
+    }
+    parameters {
+        string(name: 'NAME', defaultValue: 'Gues', description: 'What is your name?')
+        text(name: 'DESCRIPTION', defaultValue: '', description: 'Tell me about you')
+        booleanParam(name: 'DEPLOY', defaultValue: false, description: 'Need to deploy?')
+        choice(name: 'SOCIAL_MEDIA', choices: ['Instagram', 'Facebook', 'Twitter'], description: 'Which social media?')
+        password(name: 'SECRET', defaultValue: '', description: 'Ecrypt Key')
+    }
+    stages {
+        stage("Parameter") {
+            agent {
+                node {
+                    label "jenkins_agent1"
+                }
+            }
+            steps {
+                echo "Hello ${params.NAME}"
+                echo "Description: ${params.DESCRIPTION}"
+                echo "Deploy: ${params.DEPLOY}"
+                echo "Social Media: ${params.SOCIAL_MEDIA}"
+                echo "Secret: ${params.SECRET}"
+            }
+        }
+    }
+}
+```
+
+## 14. Triggers
+
+`Triggers` is used for to trigger the `Job` Automatically.
+
+
+
 
 
 

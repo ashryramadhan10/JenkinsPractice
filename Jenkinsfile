@@ -4,6 +4,13 @@ pipeline {
         AUTHOR_NAME = "Ashry Ramadhan"
         APP = credentials("ashry-ramadhan")
     }
+    parameters {
+        string(name: 'NAME', defaultValue: 'Gues', description: 'What is your name?')
+        text(name: 'DESCRIPTION', defaultValue: '', description: 'Tell me about you')
+        booleanParam(name: 'DEPLOY', defaultValue: false, description: 'Need to deploy?')
+        choice(name: 'SOCIAL_MEDIA', choices: ['Instagram', 'Facebook', 'Twitter'], description: 'Which social media?')
+        password(name: 'SECRET', defaultValue: '', description: 'Ecrypt Key')
+    }
     stages {
         stage("Build") {
             agent {
@@ -42,7 +49,6 @@ pipeline {
                 STAGE_NAME = "TEST"
             }
             steps {
-                echo "Test Stage"
                 echo "stage name: ${STAGE_NAME}" 
                 echo "author name: ${AUTHOR_NAME}"
                 sh('echo "$APP_USR:$APP_PSW"')
@@ -51,6 +57,12 @@ pipeline {
                     sh 'touch test.txt'
                     archiveArtifacts artifacts: '*.txt', fingerprint: true
                 }
+
+                echo "Hello ${params.NAME}"
+                echo "Description: ${params.DESCRIPTION}"
+                echo "Deploy: ${params.DEPLOY}"
+                echo "Social Media: ${params.SOCIAL_MEDIA}"
+                echo "Secret: ${params.SECRET}"
             }
         }
         stage("Deploy") {
