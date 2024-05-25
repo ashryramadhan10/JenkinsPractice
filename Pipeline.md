@@ -362,6 +362,33 @@ pipeline {
 
 :warning: Note: you need to Build it first to get the update of the Build Triggers.
 
+## 15. Input
+
+* `Input` similar with `parameters`
+* `Input` can be used as an order that can be added to the stage
+* If we are adding the `input` to the stage, the stage will not running untill fill the `input` in.
+
+### 15.1. Input Option
+
+* `Input` can work similar with `option` as well
+* `ID` is an identifier for input, the default same with the stage name
+* `Ok` text for ok button
+* `Submitter` is the user that allowed to filling the input, can use `coma` if the user is more than one
+* `parameters` is the parameters that the user need to input
+
+```groovy
+pipeline {
+    ...
+    stages {
+        input {
+            message "Should we deploy?"
+            ok "Yes, of course"
+            submitter "ashryramadhan"
+        }
+    }
+}
+```
+
 
 
 

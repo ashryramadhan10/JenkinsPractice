@@ -23,6 +23,11 @@ pipeline {
 
     stages {
         stage("Build") {
+            input {
+                message "Should we deploy?"
+                ok "Yes, of course"
+                submitter "ashryramadhan"
+            }
             agent {
                 node {
                     label "jenkins_agent1"
