@@ -360,6 +360,8 @@ pipeline {
 }
 ```
 
+:warning: Note: you need to Build it first to get the update of the Build Triggers.
+
 
 
 
