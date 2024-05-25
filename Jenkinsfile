@@ -17,6 +17,14 @@ pipeline {
                         echo "Script ${i}"
                     }
                 }
+
+                script {
+                    def data = [
+                        "firstName": "Ashry",
+                        "lastName": "Ramadhan"
+                    ]
+                    writeJSON(file: "data.json", json: data)
+                }
             }
         }
         stage("Test") {

@@ -141,7 +141,7 @@ steps {
 }
 ```
 
-## 8. Script
+### 7.3. Script
 
 `Script` is used for a complex pipeline. It use groovy language. [https://groovy-lang.org/](https://groovy-lang.org/)
 
@@ -159,6 +159,22 @@ stages {
     }
 }
 ```
+
+### 7.4. Utility Step
+
+[https://www.jenkins.io/doc/pipeline/steps/pipeline-utility-steps/](https://www.jenkins.io/doc/pipeline/steps/pipeline-utility-steps/)
+
+```groovy
+script {
+    def data = [
+        "firstName": "Ashry",
+        "lastName": "Ramadhan"
+    ]
+    writeJSON(file: "data.json", json: data)
+}
+```
+
+
 
 
 
