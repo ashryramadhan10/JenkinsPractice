@@ -17,9 +17,9 @@ pipeline {
         timeout(time: 60, unit: 'SECONDS')
     }
 
-    triggers {
-        pollSCM("*/15 * * * *") // will detect every 15 mins, if there's any change, then build
-    }
+    // triggers {
+    //     pollSCM("*/15 * * * *") // will detect every 15 mins, if there's any change, then build
+    // }
 
     stages {
         stage("Build") {
