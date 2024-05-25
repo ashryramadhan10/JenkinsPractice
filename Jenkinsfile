@@ -39,13 +39,13 @@ pipeline {
                 }
             }
             environment {
-                STAGE_NAME = "Build"
+                STAGE_NAME = "TEST"
             }
             steps {
                 echo "Test Stage"
-                echo "author name: ${AUTHOR_NAME}"
-                echo "credentials: ${APP_USR}:${APP_PSW}" 
                 echo "stage name: ${STAGE_NAME}" 
+                echo "author name: ${AUTHOR_NAME}"
+                sh('echo "$APP_USR:$APP_PSW"')
             }
         }
         stage("Deploy") {

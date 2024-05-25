@@ -261,6 +261,12 @@ environment {
     // APP = credentials("<ID>")
     APP = credentials("ashry-ramadhan")
 }
+
+// Unsafety way
+echo "${APP_USR}:${APP_PSW}" // use "
+
+// Safety way
+sh('echo "$APP_PSW"') // use '
 ```
 
 
