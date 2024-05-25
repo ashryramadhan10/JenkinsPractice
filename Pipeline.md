@@ -160,6 +160,13 @@ stages {
 }
 ```
 
+```groovy
+script {
+    sh 'make'
+    archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true 
+}
+```
+
 ### 7.4. Utility Step
 
 [https://www.jenkins.io/doc/pipeline/steps/pipeline-utility-steps/](https://www.jenkins.io/doc/pipeline/steps/pipeline-utility-steps/)
@@ -268,6 +275,12 @@ echo "${APP_USR}:${APP_PSW}" // use "
 // Safety way
 sh('echo "$APP_PSW"') // use '
 ```
+
+## 12. Options
+
+[https://www.jenkins.io/doc/book/pipeline/syntax/#options](https://www.jenkins.io/doc/book/pipeline/syntax/#options)
+
+* `Option` can be placed below `pipeline` or `stage`
 
 
 

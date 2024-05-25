@@ -13,7 +13,7 @@ pipeline {
             }
             steps {
                 echo "Build Stage, Sleep for 5 seconds"
-                sleep(5)
+                // sleep(5)
                 sh 'echo $HOME'
 
                 echo "Start Looping:"
@@ -46,6 +46,11 @@ pipeline {
                 echo "stage name: ${STAGE_NAME}" 
                 echo "author name: ${AUTHOR_NAME}"
                 sh('echo "$APP_USR:$APP_PSW"')
+
+                script {
+                    sh 'touch test.txt'
+                    archiveArtifacts artifacts: '*.txt', fingerprint: true
+                }
             }
         }
         stage("Deploy") {
