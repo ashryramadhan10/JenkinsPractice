@@ -198,6 +198,72 @@ pipeline {
 }
 ```
 
+## 9. Global Variable
+
+Go to `Job` > `Pipeline Syntax` > `Global Variables Referece`
+
+### 9.1. Env Varibale
+
+`env` variable is a variable that we can use to get the Global Variable.
+
+`currentBuild` can be used for getting information regarding the current process build.
+
+```groovy
+steps {
+    echo "Start Job: ${env.JOB_NAME}"
+    echo "Start Build: ${env.BUILD_NUMBER}"
+    echo "Branch Name: ${env.BRANCH_NAME}"
+}
+```
+
+## 10. Environment
+
+* Pipeline has a feautre to add `environment` variable
+* If we add it below `pipeline` then all of the stages can access it.
+* If we add it below a `stage`, then only that stage can access it.
+
+```groovy
+pipeline {
+    ...
+    environment {
+        AUTHOR_NAME = "Ashry Ramadhan"
+    }
+
+    stages {
+        stage("Build") {
+            environment {
+                STAGE_NAME = "Build"
+            }
+            echo "Author: ${AUTHOR_NAME}"
+            echo "STAGE_NAME: ${STAGE_NAME"}
+        }
+        ...
+    }
+    ...
+}
+```
+
+## 11. Credentials
+
+* `credentials` keyword is used to get the credentials from Jenkins Credentials. 
+* This way is more secure rathen than we write it manually in the Jenkinsfile.
+* Not all of the credentials is supported.
+
+### 11.1. Credential Types
+
+* Secret Text: `value of secret text`
+* Secret File: `path`
+* Username and Password: environment variable of `USER_NAME` and `USER_PASSWORD`
+* SSH with private key: `path` and `environment variable`
+
+```groovy
+environment {
+    // APP = credentials("<ID>")
+    APP = credentials("jenkins_agent1")
+}
+```
+
+
 
 
 

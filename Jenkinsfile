@@ -1,5 +1,9 @@
 pipeline {
     agent none
+    environment {
+        AUTHOR_NAME = "Ashry Ramadhan"
+        APP = credentials("jenkins_agent1")
+    }
     stages {
         stage("Build") {
             agent {
@@ -13,11 +17,11 @@ pipeline {
                 sh 'echo $HOME'
 
                 echo "Start Looping:"
-                script {
-                    for (int i = 0; i <10; i++) {
-                        echo "Script ${i}"
-                    }
-                }
+                // script {
+                //     for (int i = 0; i <10; i++) {
+                //         echo "Script ${i}"
+                //     }
+                // }
 
                 script {
                     def data = [
@@ -34,8 +38,14 @@ pipeline {
                     label "jenkins_agent1"
                 }
             }
+            environment {
+                STAGE_NAME = "Build"
+            }
             steps {
                 echo "Test Stage"
+                echo "author name: ${AUTHOR_NAME}"
+                echo "credentials: ${APP}" 
+                echo "stage name: ${STAGE_NAME}" 
             }
         }
         stage("Deploy") {
