@@ -612,8 +612,12 @@ steps {
 * Configure your `Job` with your `Git`
 * On `Build Configuration` choose `Jenkinsfile`
 * Set `Scan Multibranch Pipeline Triggers`
+* Add new branches `git checkout -b develop`
+* Click `Scan Multibranch Pipeline Now`
 
 ## 22. Pipeline Limitation
+
+* We can only just create a not really long Jenkins Pipeline.
 
 
 
