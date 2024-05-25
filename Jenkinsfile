@@ -1,11 +1,12 @@
 pipeline {
-    agent {
-        node {
-            label "jenkins_agent1"
-        }
-    }
+    agent none
     stages {
         stage("Build") {
+            agent {
+                node {
+                    label "jenkins_agent1"
+                }
+            }
             steps {
                 echo "Build Stage, Sleep for 5 seconds"
                 sleep(5)
@@ -28,11 +29,21 @@ pipeline {
             }
         }
         stage("Test") {
+            agent {
+                node {
+                    label "jenkins_agent1"
+                }
+            }
             steps {
                 echo "Test Stage"
             }
         }
         stage("Deploy") {
+            agent {
+                node {
+                    label "jenkins_agent1"
+                }
+            }
             steps {
                 echo "Deploy Stage"
             }

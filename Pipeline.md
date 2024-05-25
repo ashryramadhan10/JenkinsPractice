@@ -174,6 +174,30 @@ script {
 }
 ```
 
+### 7.5. Other Steps
+
+You can check all of the steps here:
+[https://www.jenkins.io/doc/pipeline/steps/](https://www.jenkins.io/doc/pipeline/steps/)
+
+## 8. Agent Per Stage
+
+In case of we need a different agents for each stage. We need to set `agent` to `none`.
+
+```Groovy
+pipeline {
+    agent none
+    stages {
+        stage("Build") {
+            agent {
+                node {
+                    label "jenkins_agent1"
+                }
+            }
+        }
+    }
+}
+```
+
 
 
 
