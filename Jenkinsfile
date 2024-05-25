@@ -10,6 +10,13 @@ pipeline {
                 echo "Build Stage, Sleep for 5 seconds"
                 sleep(5)
                 sh 'echo $HOME'
+
+                echo "Start Looping:"
+                script {
+                    for (int i = 0; i <10; i++) {
+                        echo "Script ${i}"
+                    }
+                }
             }
         }
         stage("Test") {

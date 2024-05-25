@@ -141,7 +141,24 @@ steps {
 }
 ```
 
+## 8. Script
 
+`Script` is used for a complex pipeline. It use groovy language. [https://groovy-lang.org/](https://groovy-lang.org/)
+
+```groovy
+stages {
+    stage("Build") {
+        steps {
+            echo "Start Looping:"
+            script {
+                for (int i = 0; i <10; i++) {
+                    echo "Script ${i}"
+                }
+            }
+        }
+    }
+}
+```
 
 
 
