@@ -2,7 +2,7 @@ pipeline {
     agent none
     environment {
         AUTHOR_NAME = "Ashry Ramadhan"
-        APP = credentials("jenkins_agent1")
+        APP = credentials("ashry-ramadhan")
     }
     stages {
         stage("Build") {
@@ -44,7 +44,7 @@ pipeline {
             steps {
                 echo "Test Stage"
                 echo "author name: ${AUTHOR_NAME}"
-                echo "credentials: ${APP}" 
+                echo "credentials: ${APP_USR}:${APP_PSW}" 
                 echo "stage name: ${STAGE_NAME}" 
             }
         }

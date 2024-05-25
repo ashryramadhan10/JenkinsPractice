@@ -259,7 +259,7 @@ pipeline {
 ```groovy
 environment {
     // APP = credentials("<ID>")
-    APP = credentials("jenkins_agent1")
+    APP = credentials("ashry-ramadhan")
 }
 ```
 
